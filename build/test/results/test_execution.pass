@@ -1,0 +1,25 @@
+---
+:source:
+  :path: test
+  :file: test_execution.c
+:successes:
+- :test: test_add_WREG_to_file_register_and_save_into_WREG
+  :line: 10
+  :message: ''
+- :test: test_add_WREG_to_file_register_and_save_into_file_register
+  :line: 21
+  :message: ''
+- :test: test_for_fun
+  :line: 31
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 3
+  :passed: 3
+  :failed: 0
+  :ignored: 0
+:stdout:
+- 10 a 12
+- '2'
+- ''
