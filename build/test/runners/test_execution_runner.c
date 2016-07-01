@@ -32,7 +32,10 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_add_WREG_to_file_register_and_save_into_WREG(void);
 extern void test_add_WREG_to_file_register_and_save_into_file_register(void);
-extern void test_for_fun(void);
+extern void test_add_WREG_and_carry_bit_to_file_register_and_save_into_WREG(void);
+extern void test_add_WREG_and_carry_bit_to_file_register_and_save_into_file_register(void);
+extern void test_AND_WREG_with_file_register_and_save_into_WREG(void);
+extern void test_AND_WREG_with_file_register_and_save_into_file_register(void);
 
 
 //=======Test Reset Option=====
@@ -50,7 +53,10 @@ int main(void)
   UnityBegin("test_execution.c");
   RUN_TEST(test_add_WREG_to_file_register_and_save_into_WREG, 10);
   RUN_TEST(test_add_WREG_to_file_register_and_save_into_file_register, 21);
-  RUN_TEST(test_for_fun, 31);
+  RUN_TEST(test_add_WREG_and_carry_bit_to_file_register_and_save_into_WREG, 32);
+  RUN_TEST(test_add_WREG_and_carry_bit_to_file_register_and_save_into_file_register, 44);
+  RUN_TEST(test_AND_WREG_with_file_register_and_save_into_WREG, 56);
+  RUN_TEST(test_AND_WREG_with_file_register_and_save_into_file_register, 67);
 
   return (UnityEnd());
 }

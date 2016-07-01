@@ -28,8 +28,49 @@ void test_add_WREG_to_file_register_and_save_into_file_register(void)
   
   TEST_ASSERT_EQUAL(0xD9, fileRegister);
 }
-void test_for_fun(void){
-  int a = 10 >> 2;
-  printf("%d %x %o\n", 10, 10, 10); //prints "10 A 12\n"
-  printf("%d\n", a); // prints "%b\n"
+
+void test_add_WREG_and_carry_bit_to_file_register_and_save_into_WREG(void)
+{
+  int instructionCode = 0x20;
+  int WREG = 0x11;
+  int fileRegister = 0x12;
+  int carryBit = 1;
+  
+  WREG = addwfc (instructionCode, WREG, fileRegister, carryBit);
+  
+  TEST_ASSERT_EQUAL(0x24, WREG);
+}
+
+void test_add_WREG_and_carry_bit_to_file_register_and_save_into_file_register(void)
+{
+  int instructionCode = 0x22;
+  int WREG = 0x11;
+  int fileRegister = 0x12;
+  int carryBit = 1;
+  
+  fileRegister = addwfc (instructionCode, WREG, fileRegister, carryBit);
+  
+  TEST_ASSERT_EQUAL(0x24, fileRegister);
+}
+
+void test_AND_WREG_with_file_register_and_save_into_WREG(void)
+{
+  int instructionCode = 0x22;
+  int WREG = 0x17;
+  int fileRegister = 0xC2;
+  
+  WREG = andwf (instructionCode, WREG, fileRegister);
+  
+  TEST_ASSERT_EQUAL(0x02, WREG);
+}
+
+void test_AND_WREG_with_file_register_and_save_into_file_register(void)
+{
+  int instructionCode = 0x22;
+  int WREG = 0x43;
+  int fileRegister = 0xD7;
+  
+  fileRegister = andwf (instructionCode, WREG, fileRegister);
+  
+  TEST_ASSERT_EQUAL(0x43, fileRegister);
 }

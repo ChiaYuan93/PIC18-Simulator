@@ -8,15 +8,40 @@
   // [0x08] = addwfc,
 // };
 
-int addwf(instructionCode, WREG, fileRegister){
-  if (instructionCode == 0x24){
+// instructionTable[instructionCode << 8] (instructionCode);
+
+int addwf(int instructionCode, int WREG, int fileRegister){
+  int Checkbit2 = (instructionCode >> 1) & 1;
+  if (!Checkbit2){
     WREG = WREG + fileRegister;
     return WREG;
   }  
-  if (instructionCode == 0x26){
+  else{
     fileRegister = WREG + fileRegister;
     return fileRegister;
   }
-  else
-    return 0;
+}
+
+int addwfc(int instructionCode, int WREG, int fileRegister, int CFlag){
+  int Checkbit2 = (instructionCode >> 1) & 1;
+  if (!Checkbit2){
+    WREG = WREG + fileRegister + CFlag;
+    return WREG;
+  }
+  else{
+    fileRegister = WREG + fileRegister + CFlag;
+    return fileRegister;
+  }
+}
+
+int andwf(int instructionCode, int WREG, int fileRegister){
+  int Checkbit2 = (instructionCode >> 1) & 1;
+  if (!Checkbit2){
+    WREG = WREG & fileRegister;
+    return WREG;
+  }
+  else{
+    fileRegister = WREG & fileRegister;
+    return fileRegister;
+  }
 }
