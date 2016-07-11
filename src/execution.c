@@ -1,6 +1,7 @@
 #include "execution.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <RegisterAddress.h>
 
 
 // Instruction instructionTable[256] = {
@@ -10,38 +11,34 @@
 
 // instructionTable[instructionCode << 8] (instructionCode);
 
-int addwf(int instructionCode, int WREG, int fileRegister){
-  int Checkbit2 = (instructionCode >> 1) & 1;
-  if (!Checkbit2){
-    WREG = WREG + fileRegister;
-    return WREG;
-  }  
+int addwf (fileRegAddr, d, a){
+  if(!d){ 
+  WREG = WREG + memory[fileRegAddr];
+  }
   else{
-    fileRegister = WREG + fileRegister;
-    return fileRegister;
+  memory[fileRegAddr] = WREG + memory[fileRegAddr]; 
   }
 }
 
-int addwfc(int instructionCode, int WREG, int fileRegister, int CFlag){
-  int Checkbit2 = (instructionCode >> 1) & 1;
-  if (!Checkbit2){
-    WREG = WREG + fileRegister + CFlag;
-    return WREG;
+int addwfc (fileRegAddr, d, a){
+  if(!d){
+  WREG = WREG + memory[fileRegAddr];
   }
   else{
-    fileRegister = WREG + fileRegister + CFlag;
-    return fileRegister;
+  memory[fileRegAddr] = WREG + memory[fileRegAddr]; 
   }
 }
 
-int andwf(int instructionCode, int WREG, int fileRegister){
-  int Checkbit2 = (instructionCode >> 1) & 1;
-  if (!Checkbit2){
-    WREG = WREG & fileRegister;
-    return WREG;
-  }
-  else{
-    fileRegister = WREG & fileRegister;
-    return fileRegister;
-  }
-}
+// int andwf(int instructionCode, int WREG, int fileRegister){
+  // int Checkbit2 = (instructionCode >> 1) & 1;
+  // if (!Checkbit2){
+    // WREG = WREG & fileRegister;
+    // return WREG;
+  // }
+  // else{
+    // fileRegister = WREG & fileRegister;
+    // return fileRegister;
+  // }
+// }
+
+// int addlw(int instructionCode, int)

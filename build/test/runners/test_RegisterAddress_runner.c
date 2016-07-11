@@ -30,8 +30,6 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_addwf_given_d_is_0_result_should_store_into_WREG(void);
-extern void test_addwf_given_d_is_1_result_should_store_into_file_register(void);
 
 
 //=======Test Reset Option=====
@@ -46,9 +44,7 @@ void resetTest(void)
 //=======MAIN=====
 int main(void)
 {
-  UnityBegin("test_execution.c");
-  RUN_TEST(test_addwf_given_d_is_0_result_should_store_into_WREG, 11);
-  RUN_TEST(test_addwf_given_d_is_1_result_should_store_into_file_register, 23);
+  UnityBegin("test_RegisterAddress.c");
 
   return (UnityEnd());
 }

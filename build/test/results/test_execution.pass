@@ -3,29 +3,17 @@
   :path: test
   :file: test_execution.c
 :successes:
-- :test: test_add_WREG_to_file_register_and_save_into_WREG
-  :line: 10
+- :test: test_addwf_given_d_is_0_result_should_store_into_WREG
+  :line: 11
   :message: ''
-- :test: test_add_WREG_to_file_register_and_save_into_file_register
-  :line: 21
-  :message: ''
-- :test: test_add_WREG_and_carry_bit_to_file_register_and_save_into_WREG
-  :line: 32
-  :message: ''
-- :test: test_add_WREG_and_carry_bit_to_file_register_and_save_into_file_register
-  :line: 44
-  :message: ''
-- :test: test_AND_WREG_with_file_register_and_save_into_WREG
-  :line: 56
-  :message: ''
-- :test: test_AND_WREG_with_file_register_and_save_into_file_register
-  :line: 67
+- :test: test_addwf_given_d_is_1_result_should_store_into_file_register
+  :line: 23
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 6
-  :passed: 6
+  :total: 2
+  :passed: 2
   :failed: 0
   :ignored: 0
 :stdout:
