@@ -11,34 +11,39 @@
 
 // instructionTable[instructionCode << 8] (instructionCode);
 
-int addwf (fileRegAddr, d, a){
-  if(!d){ 
-  WREG = WREG + memory[fileRegAddr];
-  }
-  else{
-  memory[fileRegAddr] = WREG + memory[fileRegAddr]; 
-  }
-}
-
-int addwfc (fileRegAddr, d, a){
+int GPR (fileRegAddr, d){
+  int TempReg = memory[fileRegAddr];
+  fileRegAddr = (BSR << 8) + fileRegAddr;
   if(!d){
-  WREG = WREG + memory[fileRegAddr];
+    memory[fileRegAddr] = WREG;
   }
   else{
-  memory[fileRegAddr] = WREG + memory[fileRegAddr]; 
+    memory[fileRegAddr] = TempReg;
+  }
+  return fileRegAddr;
+}
+
+int addwf (fileRegAddr, d, a){
+  if(!d){
+    WREG = WREG + memory[fileRegAddr];
+    if(a){      
+      GPR (fileRegAddr, d);      
+    }
+  }
+  else{
+    memory[fileRegAddr] = WREG + memory[fileRegAddr];
+    if(a){
+      GPR (fileRegAddr, d);  
+    }
   }
 }
 
-// int andwf(int instructionCode, int WREG, int fileRegister){
-  // int Checkbit2 = (instructionCode >> 1) & 1;
-  // if (!Checkbit2){
-    // WREG = WREG & fileRegister;
-    // return WREG;
+// int addwfc (fileRegAddr, d, a){
+  // if(!d){
+  // WREG = WREG + memory[fileRegAddr];
   // }
   // else{
-    // fileRegister = WREG & fileRegister;
-    // return fileRegister;
+  // memory[fileRegAddr] = WREG + memory[fileRegAddr]; 
   // }
 // }
 
-// int addlw(int instructionCode, int)
