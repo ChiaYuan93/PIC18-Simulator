@@ -38,6 +38,21 @@ int addwf (fileRegAddr, d, a){
   }
 }
 
+int andwf (fileRegAddr, d, a){
+  if(!d){
+    WREG = WREG & memory[fileRegAddr];
+    if(a){      
+      GPR (fileRegAddr, d);      
+    }
+  }
+  else{
+    memory[fileRegAddr] = WREG & memory[fileRegAddr];
+    if(a){
+      GPR (fileRegAddr, d);  
+    }
+  }
+}
+
 // int addwfc (fileRegAddr, d, a){
   // if(!d){
   // WREG = WREG + memory[fileRegAddr];

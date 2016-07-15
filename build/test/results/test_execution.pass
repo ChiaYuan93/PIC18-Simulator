@@ -12,13 +12,20 @@
 - :test: test_addwf_given_a_is_1_result_should_store_into_general_purpose_register
   :line: 36
   :message: ''
+- :test: test_andwf_given_d_is_0_result_should_store_into_WREG
+  :line: 52
+  :message: ''
+- :test: test_andwf_given_d_is_1_result_should_store_into_file_register
+  :line: 66
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 3
-  :passed: 3
+  :total: 5
+  :passed: 5
   :failed: 0
   :ignored: 0
 :stdout:
 - '55'
+- '2'
 - ''

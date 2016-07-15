@@ -49,3 +49,30 @@ void test_addwf_given_a_is_1_result_should_store_into_general_purpose_register(v
   TEST_ASSERT_EQUAL(0x37, memory[fileRegAddr]); 
 }
 
+void test_andwf_given_d_is_0_result_should_store_into_WREG(void)
+{
+  int fileRegAddr = 0x25;
+  memory [fileRegAddr] = 0xC2;
+  WREG  = 0x17;
+  int d = 0, a = 0;
+  
+  andwf (fileRegAddr, d, a);
+  printf("%d", WREG);
+  
+  TEST_ASSERT_EQUAL(0x02, WREG);
+  TEST_ASSERT_EQUAL(0xC2, memory[fileRegAddr]); 
+}
+
+void test_andwf_given_d_is_1_result_should_store_into_file_register(void)
+{
+  int fileRegAddr = 0x27;
+  memory [fileRegAddr] = 0xC2;
+  WREG  = 0x17;
+  int d = 1, a = 0;
+  
+  andwf (fileRegAddr, d, a);
+  
+  TEST_ASSERT_EQUAL(0x17, WREG); 
+  TEST_ASSERT_EQUAL(0x02, memory[fileRegAddr]);
+}
+
