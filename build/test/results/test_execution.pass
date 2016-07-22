@@ -3,33 +3,70 @@
   :path: test
   :file: test_execution.c
 :successes:
-- :test: test_addwf_given_d_is_0_result_should_store_into_WREG
+- :test: test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address
   :line: 11
   :message: ''
-- :test: test_addwf_given_d_is_1_result_should_store_into_file_register
-  :line: 23
+- :test: test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 22
   :message: ''
-- :test: test_addwf_given_a_is_1_result_should_store_into_general_purpose_register
-  :line: 36
+- :test: test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register
+  :line: 35
+  :message: ''
+- :test: test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register
+  :line: 46
+  :message: ''
+- :test: test_addwf_given_d_is_0_result_should_store_into_WREG
+  :line: 57
+  :message: ''
+- :test: test_addwf_given_d_is_1_result_should_store_into_file_register
+  :line: 72
+  :message: ''
+- :test: test_addwf_given_accessType_is_0_result_should_store_into_access_bank
+  :line: 87
+  :message: ''
+- :test: test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 103
   :message: ''
 - :test: test_andwf_given_d_is_0_result_should_store_into_WREG
-  :line: 52
+  :line: 119
   :message: ''
 - :test: test_andwf_given_d_is_1_result_should_store_into_file_register
-  :line: 66
+  :line: 135
   :message: ''
-- :test: test_andwf_given_a_is_1_result_should_store_into_general_purpose_register
-  :line: 79
+- :test: test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 150
+  :message: ''
+- :test: test_andwf_given_accessType_is_0_result_should_store_into_access_bank
+  :line: 168
+  :message: ''
+- :test: test_addwfc_given_d_is_0_result_should_store_into_WREG
+  :line: 186
+  :message: ''
+- :test: test_addwfc_given_d_is_1_result_should_store_into_file_register
+  :line: 205
+  :message: ''
+- :test: test_addwfc_given_accessType_is_0_result_should_store_into_access_bank
+  :line: 224
+  :message: ''
+- :test: test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 244
+  :message: ''
+- :test: test_addlw_given_Literal_is_15_result_should_store_into_WREG
+  :line: 264
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 6
-  :passed: 6
+  :total: 17
+  :passed: 17
   :failed: 0
   :ignored: 0
 :stdout:
-- '547'
-- '2'
 - '807'
+- '50'
+- '18'
+- '786'
+- '18'
+- '274'
+- '44'
 - ''

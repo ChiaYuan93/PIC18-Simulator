@@ -1,6 +1,7 @@
 #ifndef RegisterAddress_H
 #define RegisterAddress_H
 
+int fileMemory[0xFF];
 int memory[0xFFF]; 
 #define TOSU memory[0xFFF]
 #define TOSh memory[0xFFE]

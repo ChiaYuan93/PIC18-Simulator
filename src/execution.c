@@ -1,60 +1,51 @@
 #include "execution.h"
 #include <stdint.h>
 #include <stdio.h>
-#include <RegisterAddress.h>
-
-
-// Instruction instructionTable[256] = {
-  // [0x09] = addwf,
-  // [0x08] = addwfc,
-// };
-
-// instructionTable[instructionCode << 8] (instructionCode);
+#include "RegisterAddress.h"
 
 int readByte(int fileRegAddr, int accessType){
-  if(accessType)
+  if(accessType){
     fileRegAddr = (BSR << 8) + fileRegAddr;
-  
+  }
+  else{
+    fileRegAddr = fileRegAddr;
+  }
   return fileRegAddr;
 }
 
 void writeByte(int fileRegAddr, int accessType, int value){
-  fileRegAddr = readByte(int fileRegAddr, int accessType);
-  memory[fileRegAddr] = value;
+  int dataMemoryAddr = readByte(fileRegAddr, accessType);
+  memory[dataMemoryAddr] = value;
 }
 
-void writeToFileRegister(int fileRegAddr, d, int value){
-  if(d)
-    memory[fileRegAddr] = value;
-  else
+void writeToFileRegister(int fileRegAddr, int d, int value){
+  if(d){
+    fileMemory[fileRegAddr] = value;
+  }  
+  else{
     WREG = value;
+  }
 } 
 
-// int addwf (fileRegAddr, d, a){
-  // int result = WREG + memory[fileRegAddr];
-// }
+int addwf (int fileRegAddr, int d, int accessType){
+  int value = WREG + fileMemory[fileRegAddr];
+  writeToFileRegister(fileRegAddr, d, value);
+  writeByte(fileRegAddr, accessType, value);
+}
 
-// int andwf (fileRegAddr, d, a){
-  // if(!d){
-    // WREG = WREG & memory[fileRegAddr];
-    // if(a){      
-      // GPR (fileRegAddr, d);      
-    // }
-  // }
-  // else{
-    // memory[fileRegAddr] = WREG & memory[fileRegAddr];
-    // if(a){
-      // GPR (fileRegAddr, d);  
-    // }
-  // }
-// }
+int andwf (int fileRegAddr, int d, int accessType){
+  int value = WREG & fileMemory[fileRegAddr];
+  writeToFileRegister(fileRegAddr, d, value);
+  writeByte(fileRegAddr, accessType, value);
+}
 
-// int addwfc (fileRegAddr, d, a){
-  // if(!d){
-  // WREG = WREG + memory[fileRegAddr];
-  // }
-  // else{
-  // memory[fileRegAddr] = WREG + memory[fileRegAddr]; 
-  // }
-// }
+int addwfc (int fileRegAddr, int d, int accessType){
+  int value = WREG + fileMemory[fileRegAddr] + (STATUS && 0x01);
+  writeToFileRegister(fileRegAddr, d, value);
+  writeByte(fileRegAddr, accessType, value);
+}
+
+int addlw (int Literal){
+  WREG = WREG + Literal;
+}
 

@@ -30,12 +30,23 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address(void);
+extern void test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register(void);
+extern void test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register(void);
 extern void test_addwf_given_d_is_0_result_should_store_into_WREG(void);
 extern void test_addwf_given_d_is_1_result_should_store_into_file_register(void);
-extern void test_addwf_given_a_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_addwf_given_accessType_is_0_result_should_store_into_access_bank(void);
+extern void test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
 extern void test_andwf_given_d_is_0_result_should_store_into_WREG(void);
 extern void test_andwf_given_d_is_1_result_should_store_into_file_register(void);
-extern void test_andwf_given_a_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_andwf_given_accessType_is_0_result_should_store_into_access_bank(void);
+extern void test_addwfc_given_d_is_0_result_should_store_into_WREG(void);
+extern void test_addwfc_given_d_is_1_result_should_store_into_file_register(void);
+extern void test_addwfc_given_accessType_is_0_result_should_store_into_access_bank(void);
+extern void test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_addlw_given_Literal_is_15_result_should_store_into_WREG(void);
 
 
 //=======Test Reset Option=====
@@ -51,12 +62,23 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_execution.c");
-  RUN_TEST(test_addwf_given_d_is_0_result_should_store_into_WREG, 11);
-  RUN_TEST(test_addwf_given_d_is_1_result_should_store_into_file_register, 23);
-  RUN_TEST(test_addwf_given_a_is_1_result_should_store_into_general_purpose_register, 36);
-  RUN_TEST(test_andwf_given_d_is_0_result_should_store_into_WREG, 52);
-  RUN_TEST(test_andwf_given_d_is_1_result_should_store_into_file_register, 66);
-  RUN_TEST(test_andwf_given_a_is_1_result_should_store_into_general_purpose_register, 79);
+  RUN_TEST(test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address, 11);
+  RUN_TEST(test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register, 22);
+  RUN_TEST(test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register, 35);
+  RUN_TEST(test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register, 46);
+  RUN_TEST(test_addwf_given_d_is_0_result_should_store_into_WREG, 57);
+  RUN_TEST(test_addwf_given_d_is_1_result_should_store_into_file_register, 72);
+  RUN_TEST(test_addwf_given_accessType_is_0_result_should_store_into_access_bank, 87);
+  RUN_TEST(test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 103);
+  RUN_TEST(test_andwf_given_d_is_0_result_should_store_into_WREG, 119);
+  RUN_TEST(test_andwf_given_d_is_1_result_should_store_into_file_register, 135);
+  RUN_TEST(test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 150);
+  RUN_TEST(test_andwf_given_accessType_is_0_result_should_store_into_access_bank, 168);
+  RUN_TEST(test_addwfc_given_d_is_0_result_should_store_into_WREG, 186);
+  RUN_TEST(test_addwfc_given_d_is_1_result_should_store_into_file_register, 205);
+  RUN_TEST(test_addwfc_given_accessType_is_0_result_should_store_into_access_bank, 224);
+  RUN_TEST(test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register, 244);
+  RUN_TEST(test_addlw_given_Literal_is_15_result_should_store_into_WREG, 264);
 
   return (UnityEnd());
 }
