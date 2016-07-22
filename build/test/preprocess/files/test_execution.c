@@ -85,7 +85,7 @@ void test_addwf_given_a_is_1_result_should_store_into_general_purpose_register(v
 
   fileRegAddr = GPR (fileRegAddr, d);
 
-  printf("%d", memory[fileRegAddr]);
+  printf("%d", fileRegAddr);
 
 
 
@@ -146,5 +146,37 @@ void test_andwf_given_d_is_1_result_should_store_into_file_register(void)
   UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)75, UNITY_DISPLAY_STYLE_INT);
 
   UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[fileRegAddr])), (((void *)0)), (_U_UINT)76, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_andwf_given_a_is_1_result_should_store_into_general_purpose_register(void)
+
+{
+
+  int fileRegAddr = 0x27;
+
+  memory [fileRegAddr] = 0xC2;
+
+  memory[0xFE8] = 0x17;
+
+  memory[0xFE0] = 3;
+
+  int d = 1, a = 0;
+
+
+
+  andwf (fileRegAddr, d, a);
+
+  fileRegAddr = GPR (fileRegAddr, d);
+
+  printf("%d", fileRegAddr);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)91, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[fileRegAddr])), (((void *)0)), (_U_UINT)92, UNITY_DISPLAY_STYLE_INT);
 
 }

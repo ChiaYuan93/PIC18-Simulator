@@ -11,47 +11,43 @@
 
 // instructionTable[instructionCode << 8] (instructionCode);
 
-int GPR (fileRegAddr, d){
-  int TempReg = memory[fileRegAddr];
-  fileRegAddr = (BSR << 8) + fileRegAddr;
-  if(!d){
-    memory[fileRegAddr] = WREG;
-  }
-  else{
-    memory[fileRegAddr] = TempReg;
-  }
+int readByte(int fileRegAddr, int accessType){
+  if(accessType)
+    fileRegAddr = (BSR << 8) + fileRegAddr;
+  
   return fileRegAddr;
 }
 
-int addwf (fileRegAddr, d, a){
-  if(!d){
-    WREG = WREG + memory[fileRegAddr];
-    if(a){      
-      GPR (fileRegAddr, d);      
-    }
-  }
-  else{
-    memory[fileRegAddr] = WREG + memory[fileRegAddr];
-    if(a){
-      GPR (fileRegAddr, d);  
-    }
-  }
+void writeByte(int fileRegAddr, int accessType, int value){
+  fileRegAddr = readByte(int fileRegAddr, int accessType);
+  memory[fileRegAddr] = value;
 }
 
-int andwf (fileRegAddr, d, a){
-  if(!d){
-    WREG = WREG & memory[fileRegAddr];
-    if(a){      
-      GPR (fileRegAddr, d);      
-    }
-  }
-  else{
-    memory[fileRegAddr] = WREG & memory[fileRegAddr];
-    if(a){
-      GPR (fileRegAddr, d);  
-    }
-  }
-}
+void writeToFileRegister(int fileRegAddr, d, int value){
+  if(d)
+    memory[fileRegAddr] = value;
+  else
+    WREG = value;
+} 
+
+// int addwf (fileRegAddr, d, a){
+  // int result = WREG + memory[fileRegAddr];
+// }
+
+// int andwf (fileRegAddr, d, a){
+  // if(!d){
+    // WREG = WREG & memory[fileRegAddr];
+    // if(a){      
+      // GPR (fileRegAddr, d);      
+    // }
+  // }
+  // else{
+    // memory[fileRegAddr] = WREG & memory[fileRegAddr];
+    // if(a){
+      // GPR (fileRegAddr, d);  
+    // }
+  // }
+// }
 
 // int addwfc (fileRegAddr, d, a){
   // if(!d){
