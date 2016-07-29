@@ -30,6 +30,19 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_checkCarry_given_value_is_over_maximum_value_should_set_Carry_flag(void);
+extern void test_checkCarry_given_value_is_under_maximum_value_should_unset_Carry_flag(void);
+extern void test_checkBorrow_given_minuend_is_smaller_than_subtrahend_should_unset_Carry_flag(void);
+extern void test_checkBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Carry_flag(void);
+extern void test_checkZero_given_value_is_0_should_set_zero_flag(void);
+extern void test_checkZero_given_value_is_positive_number_should_unset_zero_flag(void);
+extern void test_checkZero_given_value_is_negative_value_should_unset_zero_flag(void);
+extern void test_checkOverflow_given_value_is_more_than_127_should_set_Overflow_flag(void);
+extern void test_checkOverflow_given_value_is_less_than_negative_128_should_set_Overflow_flag(void);
+extern void test_checkOverflow_given_value_is_124_should_unset_Overflow_flag(void);
+extern void test_checkOverflow_given_value_is_negative_123_should_unset_Overflow_flag(void);
+extern void test_checkNegative_given_value_is_positive_value_should_unset_negative_flag(void);
+extern void test_checkNegative_given_value_is_negative_value_should_set_negative_flag(void);
 extern void test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address(void);
 extern void test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
 extern void test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register(void);
@@ -47,6 +60,18 @@ extern void test_addwfc_given_d_is_1_result_should_store_into_file_register(void
 extern void test_addwfc_given_accessType_is_0_result_should_store_into_access_bank(void);
 extern void test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
 extern void test_addlw_given_Literal_is_15_result_should_store_into_WREG(void);
+extern void test_subwf_given_d_is_0_result_should_store_into_WREG(void);
+extern void test_subwf_given_d_is_1_result_should_store_into_file_register(void);
+extern void test_subwf_given_accessType_is_0_result_should_store_into_access_bank(void);
+extern void test_subwf_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_subfwb_given_d_is_0_result_should_store_into_WREG(void);
+extern void test_subfwb_given_d_is_1_result_should_store_into_file_register(void);
+extern void test_subfwb_given_accessType_is_0_result_should_store_into_access_bank(void);
+extern void test_subfwb_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
+extern void test_subwfb_given_d_is_0_result_should_store_into_WREG(void);
+extern void test_subwfb_given_d_is_1_result_should_store_into_file_register(void);
+extern void test_subwfb_given_accessType_is_0_result_should_store_into_access_bank(void);
+extern void test_subwfb_given_accessType_is_1_result_should_store_into_general_purpose_register(void);
 
 
 //=======Test Reset Option=====
@@ -62,23 +87,48 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_execution.c");
-  RUN_TEST(test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address, 11);
-  RUN_TEST(test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register, 22);
-  RUN_TEST(test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register, 35);
-  RUN_TEST(test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register, 46);
-  RUN_TEST(test_addwf_given_d_is_0_result_should_store_into_WREG, 57);
-  RUN_TEST(test_addwf_given_d_is_1_result_should_store_into_file_register, 72);
-  RUN_TEST(test_addwf_given_accessType_is_0_result_should_store_into_access_bank, 87);
-  RUN_TEST(test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 103);
-  RUN_TEST(test_andwf_given_d_is_0_result_should_store_into_WREG, 119);
-  RUN_TEST(test_andwf_given_d_is_1_result_should_store_into_file_register, 135);
-  RUN_TEST(test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 150);
-  RUN_TEST(test_andwf_given_accessType_is_0_result_should_store_into_access_bank, 168);
-  RUN_TEST(test_addwfc_given_d_is_0_result_should_store_into_WREG, 186);
-  RUN_TEST(test_addwfc_given_d_is_1_result_should_store_into_file_register, 205);
-  RUN_TEST(test_addwfc_given_accessType_is_0_result_should_store_into_access_bank, 224);
-  RUN_TEST(test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register, 244);
-  RUN_TEST(test_addlw_given_Literal_is_15_result_should_store_into_WREG, 264);
+  RUN_TEST(test_checkCarry_given_value_is_over_maximum_value_should_set_Carry_flag, 11);
+  RUN_TEST(test_checkCarry_given_value_is_under_maximum_value_should_unset_Carry_flag, 20);
+  RUN_TEST(test_checkBorrow_given_minuend_is_smaller_than_subtrahend_should_unset_Carry_flag, 29);
+  RUN_TEST(test_checkBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Carry_flag, 40);
+  RUN_TEST(test_checkZero_given_value_is_0_should_set_zero_flag, 51);
+  RUN_TEST(test_checkZero_given_value_is_positive_number_should_unset_zero_flag, 60);
+  RUN_TEST(test_checkZero_given_value_is_negative_value_should_unset_zero_flag, 69);
+  RUN_TEST(test_checkOverflow_given_value_is_more_than_127_should_set_Overflow_flag, 78);
+  RUN_TEST(test_checkOverflow_given_value_is_less_than_negative_128_should_set_Overflow_flag, 87);
+  RUN_TEST(test_checkOverflow_given_value_is_124_should_unset_Overflow_flag, 96);
+  RUN_TEST(test_checkOverflow_given_value_is_negative_123_should_unset_Overflow_flag, 105);
+  RUN_TEST(test_checkNegative_given_value_is_positive_value_should_unset_negative_flag, 114);
+  RUN_TEST(test_checkNegative_given_value_is_negative_value_should_set_negative_flag, 123);
+  RUN_TEST(test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address, 132);
+  RUN_TEST(test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register, 143);
+  RUN_TEST(test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register, 156);
+  RUN_TEST(test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register, 167);
+  RUN_TEST(test_addwf_given_d_is_0_result_should_store_into_WREG, 178);
+  RUN_TEST(test_addwf_given_d_is_1_result_should_store_into_file_register, 193);
+  RUN_TEST(test_addwf_given_accessType_is_0_result_should_store_into_access_bank, 208);
+  RUN_TEST(test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 224);
+  RUN_TEST(test_andwf_given_d_is_0_result_should_store_into_WREG, 240);
+  RUN_TEST(test_andwf_given_d_is_1_result_should_store_into_file_register, 256);
+  RUN_TEST(test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 271);
+  RUN_TEST(test_andwf_given_accessType_is_0_result_should_store_into_access_bank, 287);
+  RUN_TEST(test_addwfc_given_d_is_0_result_should_store_into_WREG, 303);
+  RUN_TEST(test_addwfc_given_d_is_1_result_should_store_into_file_register, 320);
+  RUN_TEST(test_addwfc_given_accessType_is_0_result_should_store_into_access_bank, 338);
+  RUN_TEST(test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register, 356);
+  RUN_TEST(test_addlw_given_Literal_is_15_result_should_store_into_WREG, 374);
+  RUN_TEST(test_subwf_given_d_is_0_result_should_store_into_WREG, 385);
+  RUN_TEST(test_subwf_given_d_is_1_result_should_store_into_file_register, 401);
+  RUN_TEST(test_subwf_given_accessType_is_0_result_should_store_into_access_bank, 417);
+  RUN_TEST(test_subwf_given_accessType_is_1_result_should_store_into_general_purpose_register, 433);
+  RUN_TEST(test_subfwb_given_d_is_0_result_should_store_into_WREG, 449);
+  RUN_TEST(test_subfwb_given_d_is_1_result_should_store_into_file_register, 466);
+  RUN_TEST(test_subfwb_given_accessType_is_0_result_should_store_into_access_bank, 483);
+  RUN_TEST(test_subfwb_given_accessType_is_1_result_should_store_into_general_purpose_register, 500);
+  RUN_TEST(test_subwfb_given_d_is_0_result_should_store_into_WREG, 517);
+  RUN_TEST(test_subwfb_given_d_is_1_result_should_store_into_file_register, 534);
+  RUN_TEST(test_subwfb_given_accessType_is_0_result_should_store_into_access_bank, 551);
+  RUN_TEST(test_subwfb_given_accessType_is_1_result_should_store_into_general_purpose_register, 568);
 
   return (UnityEnd());
 }
