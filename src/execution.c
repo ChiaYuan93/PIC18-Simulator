@@ -3,35 +3,6 @@
 #include <stdio.h>
 #include "RegisterAddress.h"
 
-int checkZero(int value){
-  if(value == 0){
-    STATUS = STATUS | 0x04;
-  }
-  else{
-    STATUS = STATUS & 0xFB; 
-  }
-}
-
-int checkNegative(int value){
-  value = value & 0xFF;
-  if(value >> 7 == 1){
-    STATUS = STATUS | 0x10;
-  }
-  else{
-    STATUS = STATUS & 0xEF;
-  }
-}
-
-int checkOverflow(int value){
-  STATUS = STATUS & 0x00;
-  if((value < -128) || (value > 127)){
-    STATUS = STATUS | 0x8;
-  }
-  else{
-    STATUS = STATUS & 0xF7;
-  }
-}
-
 int checkCarry(int value){
   if(value > 0xFF){
     STATUS = STATUS | 0x1;
@@ -49,6 +20,54 @@ int checkBorrow(int minuend, int subtrahend){
     STATUS = STATUS | 0x1;
   }
 }
+
+int checkDigitCarry(int value){
+  if((value & 0x1F) > 0xF){
+    STATUS = STATUS | 0x2;
+  }
+  else{
+    STATUS = STATUS & 0xFD;
+  }
+}
+
+int checkDigitBorrow(int minuend, int subtrahend){
+  if((minuend & 0xF) < (subtrahend & 0xF)){
+    STATUS = STATUS & 0xFD;
+  }
+  else{
+    STATUS = STATUS | 0x2;
+  }
+}
+
+int checkZero(int value){
+  if(value == 0){
+    STATUS = STATUS | 0x04;
+  }
+  else{
+    STATUS = STATUS & 0xFB; 
+  }
+}
+
+int checkOverflow(int value){
+  if((value < -128) || (value > 127)){
+    STATUS = STATUS | 0x8;
+  }
+  else{
+    STATUS = STATUS & 0xF7;
+  }
+}
+
+int checkNegative(int value){
+  value = value & 0xFF;
+  if(value >> 7 == 1){
+    STATUS = STATUS | 0x10;
+  }
+  else{
+    STATUS = STATUS & 0xEF;
+  }
+}
+
+
 
 int readByte(int fileRegAddr, int accessType){
   if(accessType){
@@ -78,6 +97,11 @@ int addwf (int fileRegAddr, int d, int accessType){
   int value = WREG + fileMemory[fileRegAddr];
   writeToFileRegister(fileRegAddr, d, value);
   writeByte(fileRegAddr, accessType, value);
+  checkCarry(value);
+  checkDigitCarry(value);
+  checkZero(value);
+  checkOverflow(value);
+  checkNegative(value);
 }
 
 int andwf (int fileRegAddr, int d, int accessType){
@@ -114,10 +138,33 @@ int subwfb (int fileRegAddr, int d, int accessType){
   writeByte(fileRegAddr, accessType, value);
 }
 
+int sublw (int Literal){
+  WREG = Literal - WREG;
+}
 
+int andlw (int Literal){
+  WREG = Literal & WREG;
+}
 
+int iorlw(int Literal){
+  WREG = (WREG) | (Literal);
+}
 
+int iorwf(int fileRegAddr, int d, int accessType){
+  int value = (WREG) | (fileMemory[fileRegAddr]);
+  writeToFileRegister(fileRegAddr, d, value);
+  writeByte(fileRegAddr, accessType, value);
+}
 
+int xorlw(int Literal){
+  WREG = ((~WREG) & Literal) | (WREG & (~Literal));
+}
+
+int xorwf(int fileRegAddr, int d, int accessType){
+  int value = ((~WREG) & (fileMemory[fileRegAddr]))| (WREG & (~fileMemory[fileRegAddr]));
+  writeToFileRegister(fileRegAddr, d, value);
+  writeByte(fileRegAddr, accessType, value);
+}
 
 
 

@@ -48,6 +48,48 @@ void test_checkBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Carry_f
   TEST_ASSERT_EQUAL(0x1, STATUS);
 }
 
+void test_checkDigitCarry_given_value_is_over_maximum_value_should_set_Digit_Carry_flag(void)
+{
+  STATUS = 0;
+  int value = 0x8F + 0x1;
+  
+  checkDigitCarry(value);
+  
+  TEST_ASSERT_EQUAL(0x2, STATUS);
+}
+
+void test_checkDigitCarry_given_value_is_under_maximum_value_should_unset_Digit_Carry_flag(void)
+{
+  STATUS = 0;
+  int value = 0x8E + 0x1;
+  
+  checkDigitCarry(value);
+  
+  TEST_ASSERT_EQUAL(0x0, STATUS);
+}
+
+void test_checkDigitBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Carry_flag(void)
+{
+  int minuend = 0x98;
+  int subtrahend = 0x45;
+  int value = minuend - subtrahend;
+  
+  checkDigitBorrow(minuend, subtrahend);
+  
+  TEST_ASSERT_EQUAL(0x2, STATUS);
+}
+
+void test_checkDigitBorrow_given_minuend_is_smaller_than_subtrahend_should_unset_Carry_flag(void)
+{
+  int minuend = -45;
+  int subtrahend = -56;
+  int value = minuend - subtrahend;
+  
+  checkDigitBorrow(minuend, subtrahend);
+  
+  TEST_ASSERT_EQUAL(0x0, STATUS);
+}
+
 void test_checkZero_given_value_is_0_should_set_zero_flag(void)
 {
   int value = 0;
@@ -178,16 +220,17 @@ void test_writeToFileRegister_given_d_is_0_result_should_store_into_file_registe
 void test_addwf_given_d_is_0_result_should_store_into_WREG(void)
 {
   int fileRegAddr = 0x23;
-  fileMemory[fileRegAddr] = 0x17;
-  WREG  = 0x20;
+  fileMemory[fileRegAddr] = 0xEE;
+  WREG  = 0x12;
   int d = 0, accessType = 0;
   
   addwf (fileRegAddr, d, accessType);
   int dataMemoryAddr = readByte (fileRegAddr, accessType);
     
-  TEST_ASSERT_EQUAL(0x37, WREG);
+  TEST_ASSERT_EQUAL(0x00, WREG);
   TEST_ASSERT_EQUAL(0x17, fileMemory[fileRegAddr]);
-  TEST_ASSERT_EQUAL(0x37, memory[dataMemoryAddr]);  
+  TEST_ASSERT_EQUAL(0x00, memory[dataMemoryAddr]);
+  TEST_ASSERT_EQUAL(0x0F, STATUS);  
 }
 
 void test_addwf_given_d_is_1_result_should_store_into_file_register(void)
@@ -378,7 +421,6 @@ void test_addlw_given_Literal_is_15_result_should_store_into_WREG(void)
     
   addlw (Literal);
 
-  
   TEST_ASSERT_EQUAL(0x2C, WREG); 
 }
 
@@ -581,3 +623,192 @@ void test_subwfb_given_accessType_is_1_result_should_store_into_general_purpose_
   TEST_ASSERT_EQUAL_INT8(0x14, fileMemory[fileRegAddr]);
   TEST_ASSERT_EQUAL_INT8(0xE1, memory[dataMemoryAddr]); 
 }
+
+void test_sublw_given_Literal_is_34_result_should_store_into_WREG(void)
+{
+  int Literal = 0x34;
+  WREG = 0x21;
+    
+  sublw (Literal);
+
+  TEST_ASSERT_EQUAL_INT8(0x13, WREG); 
+}
+
+void test_sublw_given_Literal_is_smaller_than_WREG_result_should_store_into_WREG(void)
+{
+  int Literal = 0x17;
+  WREG = 0x21;
+   
+  sublw (Literal);
+  
+  TEST_ASSERT_EQUAL_INT8(0xF6, WREG); 
+}
+
+void test_sublw_given_Literal_and_WREG_are_negative_value_result_should_store_into_WREG(void)
+{
+  int Literal = 0x90;
+  WREG = 0xED;
+   
+  sublw (Literal);
+  
+  TEST_ASSERT_EQUAL_INT8(0xA3, WREG); 
+}
+
+void test_andlw_given_eight_bit_Literal_AND_with_WREG_result_should_store_into_WREG(void)
+{
+  int Literal = 0x73;
+  WREG = 0xB5;
+   
+  andlw (Literal);
+  
+  TEST_ASSERT_EQUAL(0x31, WREG); 
+}
+
+void test_iorlw_given_eight_bit_Literal_OR_with_WREG_result_should_store_into_WREG(void)
+{
+  int Literal = 0xAA;
+  WREG = 0x55;
+   
+  iorlw (Literal);
+  
+  TEST_ASSERT_EQUAL(0xFF, WREG); 
+}
+
+void test_iorwf_given_d_is_0_result_should_store_into_WREG(void)
+{
+  int fileRegAddr = 0x25;
+  fileMemory [fileRegAddr] = 0xC2;
+  WREG  = 0x17;
+  int d = 0, accessType = 0;
+  BSR = 0x3;
+  
+  iorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0xD7, WREG);
+  TEST_ASSERT_EQUAL(0xC2, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0xD7, memory[dataMemoryAddr]); 
+}
+
+void test_iorwf_given_d_is_1_result_should_store_into_file_register(void)
+{
+  int fileRegAddr = 0x27;
+  fileMemory [fileRegAddr] = 0xF1;
+  WREG  = 0x14;
+  int d = 1, accessType = 0;
+  
+  iorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0x14, WREG); 
+  TEST_ASSERT_EQUAL(0xF5, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0xF5, memory[dataMemoryAddr]);
+}
+
+void test_iorwf_given_accessType_is_1_result_should_store_into_general_purpose_register(void)
+{
+  int fileRegAddr = 0x27;
+  fileMemory [fileRegAddr] = 0xC2;
+  WREG  = 0x17;
+  BSR = 0x3;
+  int d = 1, accessType = 1;
+  
+  iorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0x17, WREG); 
+  TEST_ASSERT_EQUAL(0xD7, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0xD7, memory[dataMemoryAddr]); 
+}
+
+void test_iorwf_given_accessType_is_0_result_should_store_into_access_bank(void)
+{
+  int fileRegAddr = 0x32;
+  fileMemory [fileRegAddr] = 0x83;
+  WREG  = 0x17;
+  BSR = 0x3;
+  int d = 0, accessType = 0;
+  
+  iorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0x97, WREG); 
+  TEST_ASSERT_EQUAL(0x83, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0x97, memory[dataMemoryAddr]); 
+}
+
+void test_xorlw_given_eight_bit_Literal_XOR_with_WREG_result_should_store_into_WREG(void)
+{
+  int Literal = 0x6D;
+  WREG = 0x29;
+   
+  xorlw (Literal);
+  
+  TEST_ASSERT_EQUAL(0x44, WREG); 
+}
+
+void test_xorwf_given_d_is_0_result_should_store_into_WREG(void)
+{
+  int fileRegAddr = 0x25;
+  fileMemory [fileRegAddr] = 0xC2;
+  WREG  = 0x17;
+  int d = 0, accessType = 0;
+  BSR = 0x3;
+  
+  xorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0xD5, WREG);
+  TEST_ASSERT_EQUAL(0xC2, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0xD5, memory[dataMemoryAddr]); 
+}
+
+void test_xorwf_given_d_is_1_result_should_store_into_file_register(void)
+{
+  int fileRegAddr = 0x27;
+  fileMemory [fileRegAddr] = 0xF1;
+  WREG  = 0x14;
+  int d = 1, accessType = 0;
+  
+  xorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0x14, WREG); 
+  TEST_ASSERT_EQUAL(0xE5, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0xE5, memory[dataMemoryAddr]);
+}
+
+void test_xorwf_given_accessType_is_1_result_should_store_into_general_purpose_register(void)
+{
+  int fileRegAddr = 0x27;
+  fileMemory [fileRegAddr] = 0xC2;
+  WREG  = 0x17;
+  BSR = 0x3;
+  int d = 1, accessType = 1;
+  
+  xorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0x17, WREG); 
+  TEST_ASSERT_EQUAL(0xD5, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0xD5, memory[dataMemoryAddr]); 
+}
+
+void test_xorwf_given_accessType_is_0_result_should_store_into_access_bank(void)
+{
+  int fileRegAddr = 0x32;
+  fileMemory [fileRegAddr] = 0x83;
+  WREG  = 0x17;
+  BSR = 0x3;
+  int d = 0, accessType = 0;
+  
+  xorwf (fileRegAddr, d, accessType);
+  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  
+  TEST_ASSERT_EQUAL(0x94, WREG); 
+  TEST_ASSERT_EQUAL(0x83, fileMemory[fileRegAddr]);
+  TEST_ASSERT_EQUAL(0x94, memory[dataMemoryAddr]); 
+}
+
+
+

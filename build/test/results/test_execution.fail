@@ -15,126 +15,180 @@
 - :test: test_checkBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Carry_flag
   :line: 40
   :message: ''
-- :test: test_checkZero_given_value_is_0_should_set_zero_flag
+- :test: test_checkDigitCarry_given_value_is_over_maximum_value_should_set_Digit_Carry_flag
   :line: 51
   :message: ''
+- :test: test_checkDigitCarry_given_value_is_under_maximum_value_should_unset_Digit_Carry_flag
+  :line: 61
+  :message: ''
+- :test: test_checkDigitBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Carry_flag
+  :line: 71
+  :message: ''
+- :test: test_checkDigitBorrow_given_minuend_is_smaller_than_subtrahend_should_unset_Carry_flag
+  :line: 82
+  :message: ''
+- :test: test_checkZero_given_value_is_0_should_set_zero_flag
+  :line: 93
+  :message: ''
 - :test: test_checkZero_given_value_is_positive_number_should_unset_zero_flag
-  :line: 60
+  :line: 102
   :message: ''
 - :test: test_checkZero_given_value_is_negative_value_should_unset_zero_flag
-  :line: 69
+  :line: 111
   :message: ''
 - :test: test_checkOverflow_given_value_is_more_than_127_should_set_Overflow_flag
-  :line: 78
+  :line: 120
   :message: ''
 - :test: test_checkOverflow_given_value_is_less_than_negative_128_should_set_Overflow_flag
-  :line: 87
+  :line: 129
   :message: ''
 - :test: test_checkOverflow_given_value_is_124_should_unset_Overflow_flag
-  :line: 96
+  :line: 138
   :message: ''
 - :test: test_checkOverflow_given_value_is_negative_123_should_unset_Overflow_flag
-  :line: 105
+  :line: 147
   :message: ''
 - :test: test_checkNegative_given_value_is_positive_value_should_unset_negative_flag
-  :line: 114
-  :message: ''
-- :test: test_checkNegative_given_value_is_negative_value_should_set_negative_flag
-  :line: 123
-  :message: ''
-- :test: test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address
-  :line: 132
-  :message: ''
-- :test: test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 143
-  :message: ''
-- :test: test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register
   :line: 156
   :message: ''
-- :test: test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register
-  :line: 167
+- :test: test_checkNegative_given_value_is_negative_value_should_set_negative_flag
+  :line: 165
   :message: ''
-- :test: test_addwf_given_d_is_0_result_should_store_into_WREG
-  :line: 178
+- :test: test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address
+  :line: 174
+  :message: ''
+- :test: test_writeByte_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 185
+  :message: ''
+- :test: test_writeToFileRegister_given_d_is_1_result_should_store_into_file_register
+  :line: 198
+  :message: ''
+- :test: test_writeToFileRegister_given_d_is_0_result_should_store_into_file_register
+  :line: 209
   :message: ''
 - :test: test_addwf_given_d_is_1_result_should_store_into_file_register
-  :line: 193
+  :line: 236
   :message: ''
 - :test: test_addwf_given_accessType_is_0_result_should_store_into_access_bank
-  :line: 208
+  :line: 251
   :message: ''
 - :test: test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 224
+  :line: 267
   :message: ''
 - :test: test_andwf_given_d_is_0_result_should_store_into_WREG
-  :line: 240
+  :line: 283
   :message: ''
 - :test: test_andwf_given_d_is_1_result_should_store_into_file_register
-  :line: 256
+  :line: 299
   :message: ''
 - :test: test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 271
+  :line: 314
   :message: ''
 - :test: test_andwf_given_accessType_is_0_result_should_store_into_access_bank
-  :line: 287
+  :line: 330
   :message: ''
 - :test: test_addwfc_given_d_is_0_result_should_store_into_WREG
-  :line: 303
+  :line: 346
   :message: ''
 - :test: test_addwfc_given_d_is_1_result_should_store_into_file_register
-  :line: 320
+  :line: 363
   :message: ''
 - :test: test_addwfc_given_accessType_is_0_result_should_store_into_access_bank
-  :line: 338
+  :line: 381
   :message: ''
 - :test: test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 356
+  :line: 399
   :message: ''
 - :test: test_addlw_given_Literal_is_15_result_should_store_into_WREG
-  :line: 374
-  :message: ''
-- :test: test_subwf_given_d_is_0_result_should_store_into_WREG
-  :line: 385
-  :message: ''
-- :test: test_subwf_given_d_is_1_result_should_store_into_file_register
-  :line: 401
-  :message: ''
-- :test: test_subwf_given_accessType_is_0_result_should_store_into_access_bank
   :line: 417
   :message: ''
+- :test: test_subwf_given_d_is_0_result_should_store_into_WREG
+  :line: 427
+  :message: ''
+- :test: test_subwf_given_d_is_1_result_should_store_into_file_register
+  :line: 443
+  :message: ''
+- :test: test_subwf_given_accessType_is_0_result_should_store_into_access_bank
+  :line: 459
+  :message: ''
 - :test: test_subwf_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 433
+  :line: 475
   :message: ''
 - :test: test_subfwb_given_d_is_0_result_should_store_into_WREG
-  :line: 449
+  :line: 491
   :message: ''
 - :test: test_subfwb_given_d_is_1_result_should_store_into_file_register
-  :line: 466
+  :line: 508
   :message: ''
 - :test: test_subfwb_given_accessType_is_0_result_should_store_into_access_bank
-  :line: 483
+  :line: 525
   :message: ''
 - :test: test_subfwb_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 500
+  :line: 542
   :message: ''
 - :test: test_subwfb_given_d_is_0_result_should_store_into_WREG
-  :line: 517
+  :line: 559
   :message: ''
 - :test: test_subwfb_given_d_is_1_result_should_store_into_file_register
-  :line: 534
+  :line: 576
   :message: ''
 - :test: test_subwfb_given_accessType_is_0_result_should_store_into_access_bank
-  :line: 551
+  :line: 593
   :message: ''
 - :test: test_subwfb_given_accessType_is_1_result_should_store_into_general_purpose_register
-  :line: 568
+  :line: 610
   :message: ''
-:failures: []
+- :test: test_sublw_given_Literal_is_34_result_should_store_into_WREG
+  :line: 627
+  :message: ''
+- :test: test_sublw_given_Literal_is_smaller_than_WREG_result_should_store_into_WREG
+  :line: 637
+  :message: ''
+- :test: test_sublw_given_Literal_and_WREG_are_negative_value_result_should_store_into_WREG
+  :line: 647
+  :message: ''
+- :test: test_andlw_given_eight_bit_Literal_AND_with_WREG_result_should_store_into_WREG
+  :line: 657
+  :message: ''
+- :test: test_iorlw_given_eight_bit_Literal_OR_with_WREG_result_should_store_into_WREG
+  :line: 667
+  :message: ''
+- :test: test_iorwf_given_d_is_0_result_should_store_into_WREG
+  :line: 677
+  :message: ''
+- :test: test_iorwf_given_d_is_1_result_should_store_into_file_register
+  :line: 693
+  :message: ''
+- :test: test_iorwf_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 708
+  :message: ''
+- :test: test_iorwf_given_accessType_is_0_result_should_store_into_access_bank
+  :line: 724
+  :message: ''
+- :test: test_xorlw_given_eight_bit_Literal_XOR_with_WREG_result_should_store_into_WREG
+  :line: 740
+  :message: ''
+- :test: test_xorwf_given_d_is_0_result_should_store_into_WREG
+  :line: 750
+  :message: ''
+- :test: test_xorwf_given_d_is_1_result_should_store_into_file_register
+  :line: 766
+  :message: ''
+- :test: test_xorwf_given_accessType_is_1_result_should_store_into_general_purpose_register
+  :line: 781
+  :message: ''
+- :test: test_xorwf_given_accessType_is_0_result_should_store_into_access_bank
+  :line: 797
+  :message: ''
+:failures:
+- :test: test_addwf_given_d_is_0_result_should_store_into_WREG
+  :line: 231
+  :message: Expected 23 Was 238
 :ignores: []
 :counts:
-  :total: 42
-  :passed: 42
-  :failed: 0
+  :total: 60
+  :passed: 59
+  :failed: 1
   :ignored: 0
 :stdout:
 - ''
