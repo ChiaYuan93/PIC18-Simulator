@@ -101,35 +101,43 @@ void test_checkDigitCarry_given_value_is_over_maximum_value_should_set_Digit_Car
 
   memory[0xFD8] = 0;
 
-  int value = 0x8F + 0x1;
+  int addend1 = 0xEE;
+
+  int addend2 = 0x12;
+
+  int value = addend1 + addend2;
 
 
 
-  checkDigitCarry(value);
+  checkDigitCarry(value, addend1, addend2);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x2)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)58, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x2)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)60, UNITY_DISPLAY_STYLE_INT);
 
 }
 
 
 
-void test_checkDigitCarry_given_value_is_under_maximum_value_should_unset_Digit_Carry_flag(void)
+void test_checkDigitCarry_given_value_is_more_than_maximum_value_should_set_Digit_Carry_flag(void)
 
 {
 
   memory[0xFD8] = 0;
 
-  int value = 0x8E + 0x1;
+  int addend1 = 0xEF;
+
+  int addend2 = 0x1;
+
+  int value = addend1 + addend2;
 
 
 
-  checkDigitCarry(value);
+  checkDigitCarry(value, addend1, addend2);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)68, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x2)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)72, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -151,7 +159,7 @@ void test_checkDigitBorrow_given_minuend_is_bigger_than_subtrahend_should_set_Ca
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x2)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)79, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x2)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)83, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -173,7 +181,7 @@ void test_checkDigitBorrow_given_minuend_is_smaller_than_subtrahend_should_unset
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)90, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)94, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -191,7 +199,7 @@ void test_checkZero_given_value_is_0_should_set_zero_flag(void)
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x4)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)99, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x4)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)103, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -209,7 +217,7 @@ void test_checkZero_given_value_is_positive_number_should_unset_zero_flag(void)
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)108, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)112, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -227,7 +235,7 @@ void test_checkZero_given_value_is_negative_value_should_unset_zero_flag(void)
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)117, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)121, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -245,7 +253,7 @@ void test_checkOverflow_given_value_is_more_than_127_should_set_Overflow_flag(vo
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x8)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)126, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x8)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)130, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -263,7 +271,7 @@ void test_checkOverflow_given_value_is_less_than_negative_128_should_set_Overflo
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x8)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)135, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x8)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)139, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -281,7 +289,7 @@ void test_checkOverflow_given_value_is_124_should_unset_Overflow_flag(void)
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)144, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)148, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -299,7 +307,7 @@ void test_checkOverflow_given_value_is_negative_123_should_unset_Overflow_flag(v
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)153, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)157, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -317,7 +325,7 @@ void test_checkNegative_given_value_is_positive_value_should_unset_negative_flag
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)162, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)166, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -335,17 +343,17 @@ void test_checkNegative_given_value_is_negative_value_should_set_negative_flag(v
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x10)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)171, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x10)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)175, UNITY_DISPLAY_STYLE_INT);
 
 }
 
 
 
-void test_readByte_given_accessType_is_1_result_should_return_as_general_purpose_register_address(void)
+void test_getFileAddress_given_accessType_is_1_result_should_return_as_general_purpose_register_address(void)
 
 {
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x23;
 
   int accessType = 1;
 
@@ -353,11 +361,11 @@ void test_readByte_given_accessType_is_1_result_should_return_as_general_purpose
 
 
 
-  fileRegAddr = readByte (fileRegAddr, accessType);
+  fileAddress = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x223)), (_U_SINT)((fileRegAddr)), (((void *)0)), (_U_UINT)182, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x223)), (_U_SINT)((fileAddress)), (((void *)0)), (_U_UINT)186, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -369,7 +377,7 @@ void test_writeByte_given_accessType_is_1_result_should_store_into_general_purpo
 
   int value = 0x38;
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x23;
 
   int accessType = 1;
 
@@ -377,13 +385,13 @@ void test_writeByte_given_accessType_is_1_result_should_store_into_general_purpo
 
 
 
-  writeByte (fileRegAddr, accessType, value);
+  writeByte (fileAddress, accessType, value);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x38)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)195, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x38)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)199, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -393,19 +401,25 @@ void test_writeToFileRegister_given_d_is_1_result_should_store_into_file_registe
 
 {
 
-  int value = 0x38;
+  int value = 0xF3;
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0xE8;
 
   int d = 1;
 
+  int accessType = 1;
+
+  memory[0xFE0] = 4;
 
 
-  writeToFileRegister(fileRegAddr, d, value);
+
+  writeToFileRegister(fileAddress, d, accessType, value);
+
+  fileAddress = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x38)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)206, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xF3)), (_U_SINT)((memory[fileAddress])), (((void *)0)), (_U_UINT)213, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -417,17 +431,83 @@ void test_writeToFileRegister_given_d_is_0_result_should_store_into_file_registe
 
   int value = 0x38;
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x23;
 
   int d = 0;
 
-
-
-  writeToFileRegister(fileRegAddr, d, value);
+  int accessType = 0;
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x38)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)217, UNITY_DISPLAY_STYLE_INT);
+  writeToFileRegister(fileAddress, d, accessType, value);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0x38)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)225, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_readByte_should_read_data_from_address(void)
+
+{
+
+  int fileAddress = 0x23;
+
+  memory[fileAddress] = 0x45;
+
+  int accessType = 0;
+
+  int data = readByte(fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0x45)), (_U_SINT)((data)), (((void *)0)), (_U_UINT)235, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_readByte_should_read_data_from_Bank_address(void)
+
+{
+
+  int fileAddress = 0x423;
+
+  memory[fileAddress] = 0x55;
+
+  memory[0xFE0] = 0x4;
+
+  int accessType = 0;
+
+  int data = readByte(fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0x55)), (_U_SINT)((data)), (((void *)0)), (_U_UINT)246, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_readByte_should_read_different_data_from_Bank_address(void)
+
+{
+
+  int fileAddress = 0x413;
+
+  memory[fileAddress] = 0x55;
+
+  memory[0xFE0] = 0x2;
+
+  int accessType = 1;
+
+  int data = readByte(fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((data)), (((void *)0)), (_U_UINT)257, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -437,9 +517,9 @@ void test_addwf_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x23;
 
-  fileMemory[fileRegAddr] = 0xEE;
+  memory[fileAddress] = 0xEE;
 
   memory[0xFE8] = 0x12;
 
@@ -447,19 +527,19 @@ void test_addwf_given_d_is_0_result_should_store_into_WREG(void)
 
 
 
-  addwf (fileRegAddr, d, accessType);
+  addwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x00)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)230, UNITY_DISPLAY_STYLE_INT8);
 
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)231, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x00)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)232, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x00)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)271, UNITY_DISPLAY_STYLE_INT8);
 
-  UnityAssertEqualNumber((_U_SINT)((0x0F)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)233, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xEE)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)272, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0x0F)), (_U_SINT)((memory[0xFD8])), (((void *)0)), (_U_UINT)273, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -469,9 +549,9 @@ void test_addwf_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x24;
+  int fileAddress = 0x80;
 
-  fileMemory[fileRegAddr] = 0x17;
+  memory[fileAddress] = 0x17;
 
   memory[0xFE8] = 0x20;
 
@@ -479,49 +559,13 @@ void test_addwf_given_d_is_1_result_should_store_into_file_register(void)
 
 
 
-  addwf (fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  addwf (fileAddress, d, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)246, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x20)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)285, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0x20)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)247, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)248, UNITY_DISPLAY_STYLE_INT);
-
-}
-
-
-
-void test_addwf_given_accessType_is_0_result_should_store_into_access_bank(void)
-
-{
-
-  int fileRegAddr = 0x23;
-
-  fileMemory [fileRegAddr] = 0x17;
-
-  memory[0xFE8] = 0x20;
-
-  memory[0xFE0] = 0x2;
-
-  int d = 0, accessType = 0;
-
-
-
-  addwf (fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)262, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)263, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)264, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[0xF80])), (((void *)0)), (_U_UINT)286, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -531,29 +575,27 @@ void test_addwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 {
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x423;
 
-  fileMemory [fileRegAddr] = 0x17;
+  memory [fileAddress] = 0x17;
 
   memory[0xFE8] = 0x20;
 
   memory[0xFE0] = 0x4;
 
-  int d = 0, accessType = 1;
+  int d = 1, accessType = 1;
 
 
 
-  addwf (fileRegAddr, d, accessType);
+  addwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)278, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x20)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)300, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)279, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)280, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x37)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)301, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -563,29 +605,25 @@ void test_andwf_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
   int d = 0, accessType = 0;
 
-  memory[0xFE0] = 0x3;
+
+
+  andwf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  andwf (fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)314, UNITY_DISPLAY_STYLE_INT);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)294, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)295, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)296, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)315, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -595,9 +633,9 @@ void test_andwf_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x27;
+  int fileAddress = 0x27;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
@@ -605,17 +643,15 @@ void test_andwf_given_d_is_1_result_should_store_into_file_register(void)
 
 
 
-  andwf (fileRegAddr, d, accessType);
+  andwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)309, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)328, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)310, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)311, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)329, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -625,9 +661,9 @@ void test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 {
 
-  int fileRegAddr = 0x27;
+  int fileAddress = 0x327;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
@@ -637,49 +673,15 @@ void test_andwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 
 
-  andwf (fileRegAddr, d, accessType);
+  andwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)325, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)326, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)327, UNITY_DISPLAY_STYLE_INT);
-
-}
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-void test_andwf_given_accessType_is_0_result_should_store_into_access_bank(void)
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)343, UNITY_DISPLAY_STYLE_INT);
 
-{
-
-  int fileRegAddr = 0x32;
-
-  fileMemory [fileRegAddr] = 0xC2;
-
-  memory[0xFE8] = 0x17;
-
-  memory[0xFE0] = 0x3;
-
-  int d = 0, accessType = 0;
-
-
-
-  andwf (fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)341, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)342, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)343, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x02)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)344, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -689,13 +691,11 @@ void test_addwfc_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x12;
+  int fileAddress = 0x93;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
-
-  memory[0xFE0] = 0x3;
 
   memory[0xFD8] = 0x1;
 
@@ -703,17 +703,15 @@ void test_addwfc_given_d_is_0_result_should_store_into_WREG(void)
 
 
 
-  addwfc (fileRegAddr, d, accessType);
+  addwfc (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
   UnityAssertEqualNumber((_U_SINT)((0xDA)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)358, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)359, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xDA)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)360, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)359, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -723,9 +721,9 @@ void test_addwfc_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x12;
+  int fileAddress = 0x312;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
@@ -737,19 +735,17 @@ void test_addwfc_given_d_is_1_result_should_store_into_file_register(void)
 
 
 
-  addwfc (fileRegAddr, d, accessType);
+  addwfc (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)376, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0xD9)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)377, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0xD9)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)378, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)375, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0xD9)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)376, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -759,13 +755,11 @@ void test_addwfc_given_accessType_is_0_result_should_store_into_access_bank(void
 
 {
 
-  int fileRegAddr = 0x12;
+  int fileAddress = 0x12;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
-
-  memory[0xFE0] = 0x1;
 
   memory[0xFD8] = 0x1;
 
@@ -773,55 +767,15 @@ void test_addwfc_given_accessType_is_0_result_should_store_into_access_bank(void
 
 
 
-  addwfc (fileRegAddr, d, accessType);
+  addwfc (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)393, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xDA)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)394, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x12)), (_U_SINT)((dataMemoryAddr)), (((void *)0)), (_U_UINT)395, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xDA)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)396, UNITY_DISPLAY_STYLE_INT);
-
-}
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-void test_addwfc_given_accessType_is_1_result_should_store_into_general_purpose_register(void)
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)390, UNITY_DISPLAY_STYLE_INT);
 
-{
-
-  int fileRegAddr = 0x12;
-
-  fileMemory [fileRegAddr] = 0xC2;
-
-  memory[0xFE8] = 0x17;
-
-  memory[0xFE0] = 0x1;
-
-  memory[0xFD8] = 0x0;
-
-  int d = 0, accessType = 1;
-
-
-
-  addwfc (fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0xD9)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)411, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)412, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xD9)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)413, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x112)), (_U_SINT)((dataMemoryAddr)), (((void *)0)), (_U_UINT)414, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xDA)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)391, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -841,7 +795,7 @@ void test_addlw_given_Literal_is_15_result_should_store_into_WREG(void)
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x2C)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)424, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x2C)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)401, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -851,29 +805,25 @@ void test_subwf_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0x04;
+  memory [fileAddress] = 0x04;
 
   memory[0xFE8] = 0x01;
 
   int d = 0, accessType = 0;
 
-  memory[0xFE0] = 0x3;
+
+
+  subwf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  subwf (fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x03)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)414, UNITY_DISPLAY_STYLE_INT8);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x03)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)438, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x4)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)439, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x3)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)440, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x04)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)415, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -883,61 +833,25 @@ void test_subwf_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x34;
+  int fileAddress = 0x34;
 
-  fileMemory [fileRegAddr] = 0x18;
+  memory [fileAddress] = 0x18;
 
   memory[0xFE8] = 0x19;
 
   int d = 1, accessType = 0;
 
-  memory[0xFE0] = 0x3;
+
+
+  subwf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  subwf (fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x19)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)428, UNITY_DISPLAY_STYLE_INT8);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x19)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)454, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFF)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)455, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFF)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)456, UNITY_DISPLAY_STYLE_INT8);
-
-}
-
-
-
-void test_subwf_given_accessType_is_0_result_should_store_into_access_bank(void)
-
-{
-
-  int fileRegAddr = 0x23;
-
-  fileMemory [fileRegAddr] = 0x17;
-
-  memory[0xFE8] = 0x20;
-
-  memory[0xFE0] = 0x2;
-
-  int d = 0, accessType = 0;
-
-
-
-  subwf (fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF7)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)470, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x17)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)471, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF7)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)472, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFF)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)429, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -947,29 +861,27 @@ void test_subwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 {
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x423;
 
-  fileMemory [fileRegAddr] = 0x34;
+  memory [fileAddress] = 0x34;
 
   memory[0xFE8] = 0x22;
 
   memory[0xFE0] = 0x4;
 
-  int d = 0, accessType = 1;
+  int d = 1, accessType = 1;
 
 
 
-  subwf (fileRegAddr, d, accessType);
+  subwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x12)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)486, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x22)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)443, UNITY_DISPLAY_STYLE_INT8);
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x34)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)487, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x12)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)488, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x12)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)444, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -979,9 +891,9 @@ void test_subfwb_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0x04;
+  memory [fileAddress] = 0x04;
 
   memory[0xFE8] = 0x01;
 
@@ -989,21 +901,17 @@ void test_subfwb_given_d_is_0_result_should_store_into_WREG(void)
 
   memory[0xFD8] = 0x0;
 
-  memory[0xFE0] = 0x3;
+
+
+  subfwb(fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  subfwb(fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFC)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)458, UNITY_DISPLAY_STYLE_INT8);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFC)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)503, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x4)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)504, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFC)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)505, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x04)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)459, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1013,9 +921,9 @@ void test_subfwb_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0x04;
+  memory [fileAddress] = 0x04;
 
   memory[0xFE8] = 0x01;
 
@@ -1023,55 +931,17 @@ void test_subfwb_given_d_is_1_result_should_store_into_file_register(void)
 
   memory[0xFD8] = 0x1;
 
-  memory[0xFE0] = 0x3;
+
+
+  subfwb(fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  subfwb(fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x01)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)473, UNITY_DISPLAY_STYLE_INT8);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x01)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)520, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFD)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)521, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFD)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)522, UNITY_DISPLAY_STYLE_INT8);
-
-}
-
-
-
-void test_subfwb_given_accessType_is_0_result_should_store_into_access_bank(void)
-
-{
-
-  int fileRegAddr = 0x23;
-
-  fileMemory [fileRegAddr] = 0x17;
-
-  memory[0xFE8] = 0x20;
-
-  memory[0xFD8] = 0x0;
-
-  memory[0xFE0] = 0x2;
-
-  int d = 0, accessType = 0;
-
-
-
-  subfwb(fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x8)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)537, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x17)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)538, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x8)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)539, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFD)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)474, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1081,31 +951,29 @@ void test_subfwb_given_accessType_is_1_result_should_store_into_general_purpose_
 
 {
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x323;
 
-  fileMemory [fileRegAddr] = 0x14;
+  memory [fileAddress] = 0x14;
 
   memory[0xFE8] = 0x33;
 
   memory[0xFD8] = 0x1;
 
-  memory[0xFE0] = 0x4;
+  memory[0xFE0] = 0x3;
 
-  int d = 0, accessType = 1;
-
-
-
-  subfwb(fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int d = 1, accessType = 1;
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x1F)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)554, UNITY_DISPLAY_STYLE_INT8);
+  subfwb(fileAddress, d, accessType);
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x14)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)555, UNITY_DISPLAY_STYLE_INT8);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x1F)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)556, UNITY_DISPLAY_STYLE_INT8);
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x33)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)489, UNITY_DISPLAY_STYLE_INT8);
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x1F)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)490, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1115,9 +983,9 @@ void test_subwfb_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0x04;
+  memory [fileAddress] = 0x04;
 
   memory[0xFE8] = 0x01;
 
@@ -1125,21 +993,17 @@ void test_subwfb_given_d_is_0_result_should_store_into_WREG(void)
 
   memory[0xFD8] = 0x0;
 
-  memory[0xFE0] = 0x3;
+
+
+  subwfb(fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  subwfb(fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x2)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)504, UNITY_DISPLAY_STYLE_INT8);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x2)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)571, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x4)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)572, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x2)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)573, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x04)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)505, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1149,9 +1013,9 @@ void test_subwfb_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0x17;
+  memory [fileAddress] = 0x17;
 
   memory[0xFE8] = 0x63;
 
@@ -1159,55 +1023,17 @@ void test_subwfb_given_d_is_1_result_should_store_into_file_register(void)
 
   memory[0xFD8] = 0x1;
 
-  memory[0xFE0] = 0x3;
+
+
+  subwfb(fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  subwfb(fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x63)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)519, UNITY_DISPLAY_STYLE_INT8);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x63)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)588, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xB4)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)589, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xB4)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)590, UNITY_DISPLAY_STYLE_INT8);
-
-}
-
-
-
-void test_subwfb_given_accessType_is_0_result_should_store_into_access_bank(void)
-
-{
-
-  int fileRegAddr = 0x23;
-
-  fileMemory [fileRegAddr] = 0x17;
-
-  memory[0xFE8] = 0x20;
-
-  memory[0xFD8] = 0x0;
-
-  memory[0xFE0] = 0x2;
-
-  int d = 1, accessType = 0;
-
-
-
-  subwfb(fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x20)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)605, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF6)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)606, UNITY_DISPLAY_STYLE_INT8);
-
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF6)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)607, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xB4)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)520, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1217,31 +1043,29 @@ void test_subwfb_given_accessType_is_1_result_should_store_into_general_purpose_
 
 {
 
-  int fileRegAddr = 0x23;
+  int fileAddress = 0x123;
 
-  fileMemory [fileRegAddr] = 0x14;
+  memory [fileAddress] = 0x14;
 
   memory[0xFE8] = 0x33;
 
   memory[0xFD8] = 0x1;
 
-  memory[0xFE0] = 0x4;
+  memory[0xFE0] = 0x1;
 
-  int d = 0, accessType = 1;
-
-
-
-  subwfb(fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int d = 1, accessType = 1;
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xE1)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)622, UNITY_DISPLAY_STYLE_INT8);
+  subwfb(fileAddress, d, accessType);
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x14)), (_U_SINT)(_US8 )((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)623, UNITY_DISPLAY_STYLE_INT8);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xE1)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)624, UNITY_DISPLAY_STYLE_INT8);
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x33)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)535, UNITY_DISPLAY_STYLE_INT8);
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xE1)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)536, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1261,7 +1085,7 @@ void test_sublw_given_Literal_is_34_result_should_store_into_WREG(void)
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x13)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)634, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x13)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)546, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1281,7 +1105,7 @@ void test_sublw_given_Literal_is_smaller_than_WREG_result_should_store_into_WREG
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF6)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)644, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF6)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)556, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1301,7 +1125,7 @@ void test_sublw_given_Literal_and_WREG_are_negative_value_result_should_store_in
 
 
 
-  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xA3)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)654, UNITY_DISPLAY_STYLE_INT8);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xA3)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)566, UNITY_DISPLAY_STYLE_INT8);
 
 }
 
@@ -1321,7 +1145,7 @@ void test_andlw_given_eight_bit_Literal_AND_with_WREG_result_should_store_into_W
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x31)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)664, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x31)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)576, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1341,7 +1165,7 @@ void test_iorlw_given_eight_bit_Literal_OR_with_WREG_result_should_store_into_WR
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0xFF)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)674, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xFF)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)586, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1351,29 +1175,25 @@ void test_iorwf_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
   int d = 0, accessType = 0;
 
-  memory[0xFE0] = 0x3;
+
+
+  iorwf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  iorwf (fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)((0xD7)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)599, UNITY_DISPLAY_STYLE_INT);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0xD7)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)688, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)689, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xD7)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)690, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)600, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1383,9 +1203,9 @@ void test_iorwf_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x27;
+  int fileAddress = 0x27;
 
-  fileMemory [fileRegAddr] = 0xF1;
+  memory [fileAddress] = 0xF1;
 
   memory[0xFE8] = 0x14;
 
@@ -1393,17 +1213,15 @@ void test_iorwf_given_d_is_1_result_should_store_into_file_register(void)
 
 
 
-  iorwf (fileRegAddr, d, accessType);
+  iorwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x14)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)703, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x14)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)613, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0xF5)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)704, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xF5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)705, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xF5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)614, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1413,61 +1231,27 @@ void test_iorwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 {
 
-  int fileRegAddr = 0x27;
+  int fileAddress = 0x527;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
-  memory[0xFE0] = 0x3;
+  memory[0xFE0] = 0x5;
 
   int d = 1, accessType = 1;
 
 
 
-  iorwf (fileRegAddr, d, accessType);
+  iorwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)719, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xD7)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)720, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xD7)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)721, UNITY_DISPLAY_STYLE_INT);
-
-}
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-void test_iorwf_given_accessType_is_0_result_should_store_into_access_bank(void)
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)628, UNITY_DISPLAY_STYLE_INT);
 
-{
-
-  int fileRegAddr = 0x32;
-
-  fileMemory [fileRegAddr] = 0x83;
-
-  memory[0xFE8] = 0x17;
-
-  memory[0xFE0] = 0x3;
-
-  int d = 0, accessType = 0;
-
-
-
-  iorwf (fileRegAddr, d, accessType);
-
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0x97)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)735, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x83)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)736, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0x97)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)737, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xD7)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)629, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1487,7 +1271,7 @@ void test_xorlw_given_eight_bit_Literal_XOR_with_WREG_result_should_store_into_W
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x44)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)747, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x44)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)639, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1497,29 +1281,25 @@ void test_xorwf_given_d_is_0_result_should_store_into_WREG(void)
 
 {
 
-  int fileRegAddr = 0x25;
+  int fileAddress = 0x25;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
   int d = 0, accessType = 0;
 
-  memory[0xFE0] = 0x3;
+
+
+  xorwf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  xorwf (fileRegAddr, d, accessType);
+  UnityAssertEqualNumber((_U_SINT)((0xD5)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)652, UNITY_DISPLAY_STYLE_INT);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
-
-
-
-  UnityAssertEqualNumber((_U_SINT)((0xD5)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)761, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)762, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xD5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)763, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xC2)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)653, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1529,9 +1309,9 @@ void test_xorwf_given_d_is_1_result_should_store_into_file_register(void)
 
 {
 
-  int fileRegAddr = 0x27;
+  int fileAddress = 0x27;
 
-  fileMemory [fileRegAddr] = 0xF1;
+  memory [fileAddress] = 0xF1;
 
   memory[0xFE8] = 0x14;
 
@@ -1539,17 +1319,15 @@ void test_xorwf_given_d_is_1_result_should_store_into_file_register(void)
 
 
 
-  xorwf (fileRegAddr, d, accessType);
+  xorwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x14)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)776, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x14)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)666, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0xE5)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)777, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xE5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)778, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xE5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)667, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1559,9 +1337,9 @@ void test_xorwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 {
 
-  int fileRegAddr = 0x27;
+  int fileAddress = 0x327;
 
-  fileMemory [fileRegAddr] = 0xC2;
+  memory [fileAddress] = 0xC2;
 
   memory[0xFE8] = 0x17;
 
@@ -1571,48 +1349,428 @@ void test_xorwf_given_accessType_is_1_result_should_store_into_general_purpose_r
 
 
 
-  xorwf (fileRegAddr, d, accessType);
+  xorwf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)792, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x17)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)681, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0xD5)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)793, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0xD5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)794, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0xD5)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)682, UNITY_DISPLAY_STYLE_INT);
 
 }
 
 
 
-void test_xorwf_given_accessType_is_0_result_should_store_into_access_bank(void)
+void test_clrf_given_accessType_is_1_should_clear_the_content_of_general_purpose_register(void)
 
 {
 
-  int fileRegAddr = 0x32;
+  int fileAddress = 153;
 
-  fileMemory [fileRegAddr] = 0x83;
+  memory [fileAddress] = 0xC2;
 
-  memory[0xFE8] = 0x17;
+  memory[0xFE0] = 0x1;
 
-  memory[0xFE0] = 0x3;
+  int accessType = 1;
+
+
+
+  clrf (fileAddress, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)695, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_clrf_given_accessType_is_0_should_clear_the_content_of_access_RAM(void)
+
+{
+
+  int fileAddress = 0xF93;
+
+  memory [fileAddress] = 0xC2;
+
+  int accessType = 1;
+
+
+
+  clrf (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((memory[0xF94])), (((void *)0)), (_U_UINT)706, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_comf_given_d_is_0_result_should_store_into_WREG(void)
+
+{
+
+  int fileAddress = 0x27;
+
+  memory [fileAddress] = 0x13;
 
   int d = 0, accessType = 0;
 
 
 
-  xorwf (fileRegAddr, d, accessType);
+  comf (fileAddress, d, accessType);
 
-  int dataMemoryAddr = readByte (fileRegAddr, accessType);
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
 
 
 
-  UnityAssertEqualNumber((_U_SINT)((0x94)), (_U_SINT)((memory[0xFE8])), (((void *)0)), (_U_UINT)808, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xEC)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)718, UNITY_DISPLAY_STYLE_INT8);
 
-  UnityAssertEqualNumber((_U_SINT)((0x83)), (_U_SINT)((fileMemory[fileRegAddr])), (((void *)0)), (_U_UINT)809, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0x13)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)719, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0x94)), (_U_SINT)((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)810, UNITY_DISPLAY_STYLE_INT);
+}
+
+
+
+void test_comf_given_d_is_1_result_should_store_into_file_register(void)
+
+{
+
+  int fileAddress = 0x49;
+
+  memory [fileAddress] = 0x95;
+
+  int d = 1, accessType = 0;
+
+
+
+  comf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x6A)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)731, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_comf_given_a_is_1_result_should_store_into_general_purpose_register(void)
+
+{
+
+  int fileAddress = 0x149;
+
+  memory [fileAddress] = 0x48;
+
+  memory[0xFE0] = 0x1;
+
+  int d = 1, accessType = 1;
+
+
+
+  comf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xB7)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)744, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_decf_given_d_is_0_result_should_store_into_WREG(void)
+
+{
+
+  int fileAddress = 0x49;
+
+  memory [fileAddress] = 0x48;
+
+  int d = 0, accessType = 0;
+
+
+
+  decf (fileAddress, d, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x47)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)755, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_decf_given_d_is_1_result_should_store_into_WREG(void)
+
+{
+
+  int fileAddress = 0x51;
+
+  memory [fileAddress] = 0;
+
+  int d = 1, accessType = 0;
+
+
+
+  decf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xFF)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)767, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_decf_given_a_is_1_result_should_store_into_general_purpose_register(void)
+
+{
+
+  int fileAddress = 0x251;
+
+  memory [fileAddress] = 0x10;
+
+  memory[0xFE0] = 0x2;
+
+  int d = 1, accessType = 1;
+
+
+
+  decf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x0F)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)780, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_incf_given_d_is_0_result_should_store_into_WREG(void)
+
+{
+
+  int fileAddress = 0x49;
+
+  memory [fileAddress] = 0x48;
+
+  int d = 0, accessType = 0;
+
+
+
+  incf (fileAddress, d, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x49)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)791, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_incf_given_d_is_1_result_should_store_into_WREG(void)
+
+{
+
+  int fileAddress = 0x51;
+
+  memory [fileAddress] = 0xFF;
+
+  int d = 1, accessType = 0;
+
+
+
+  incf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x00)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)803, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_incf_given_a_is_1_result_should_store_into_general_purpose_register(void)
+
+{
+
+  int fileAddress = 0x251;
+
+  memory [fileAddress] = 0x0F;
+
+  memory[0xFE0] = 0x2;
+
+  int d = 1, accessType = 1;
+
+
+
+  incf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x10)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)816, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_movf_given_d_is_0_data_should_read_from_file_register_and_store_into_WREG(void)
+
+{
+
+  int fileAddress = 0x51;
+
+  memory [fileAddress] = 0x78;
+
+  int d = 0, accessType = 0;
+
+
+
+  movf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x78)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)828, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_movf_given_d_is_1_data_should_read_from_file_register_and_store_back_into_file_register(void)
+
+{
+
+  int fileAddress = 0x251;
+
+  memory [fileAddress] = 0x78;
+
+  int d = 1, accessType = 0;
+
+
+
+  movf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x78)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)840, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_movf_given_a_is_1_data_should_read_from_file_register_and_store_back_into_file_register_with_BSR(void)
+
+{
+
+  int fileAddress = 0x151;
+
+  memory [fileAddress] = 0x11;
+
+  memory[0xFE0] = 1;
+
+  int d = 1, accessType = 1;
+
+
+
+  movf (fileAddress, d, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x11)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)853, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_movlw_data_should_store_into_WREG(void)
+
+{
+
+  int Literal = 0xF0;
+
+
+
+  movlw (Literal);
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0xF0)), (_U_SINT)(_US8 )((memory[0xFE8])), (((void *)0)), (_U_UINT)862, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_movwf_should_read_data_from_WREG_and_store_into_file_register(void)
+
+{
+
+  int fileAddress = 0x70;
+
+  memory[0xFE8] = 0x39;
+
+  int accessType = 0;
+
+
+
+  movwf (fileAddress, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x39)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)875, UNITY_DISPLAY_STYLE_INT8);
+
+}
+
+
+
+void test_movwf_given_a_is_1_should_read_data_from_WREG_and_store_into_file_register_with_BSR(void)
+
+{
+
+  int fileAddress = 0x570;
+
+  memory[0xFE8] = 0x67;
+
+  memory[0xFE0] = 5;
+
+  int accessType = 1;
+
+
+
+  movwf (fileAddress, accessType);
+
+  int dataMemoryAddr = getFileAddress (fileAddress, accessType);
+
+
+
+
+
+  UnityAssertEqualNumber((_U_SINT)(_US8 )((0x67)), (_U_SINT)(_US8 )((memory[dataMemoryAddr])), (((void *)0)), (_U_UINT)889, UNITY_DISPLAY_STYLE_INT8);
 
 }

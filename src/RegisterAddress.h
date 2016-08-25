@@ -1,7 +1,11 @@
 #ifndef RegisterAddress_H
 #define RegisterAddress_H
 
-int fileMemory[0xFF];
+#define DIR_WREG  0
+#define DIR_fileRegister  1
+#define AccessRAM 0
+#define BankRAM 1
+
 int memory[0xFFF]; 
 #define TOSU memory[0xFFF]
 #define TOSh memory[0xFFE]
